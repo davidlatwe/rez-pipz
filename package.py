@@ -1,6 +1,9 @@
 name = "pipz"
 version = "1.2.1"
-requires = ["bleeding_rez-2.29+", "python>=2,<4"]
+requires = [
+    "rez-2.29+",
+    "python>=2,<4"
+]
 
 tools = [
     "install",
@@ -18,7 +21,7 @@ build_command = " ".join([
 
 
 def commands():
-    global env
+    env = globals()["env"]
 
     env.PATH.prepend("{root}/bin")
     env.PYTHONPATH.prepend("{root}/python")
