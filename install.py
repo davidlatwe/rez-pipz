@@ -74,11 +74,15 @@ print("Building into: %s" % build_dir)
 
 root = os.path.dirname(__file__)
 for dirname in ("python", "bin"):
+    src = os.path.join(root, dirname)
+    dst = os.path.join(build_dir, dirname)
+
+    if os.path.isdir(dst):
+        print("Cleaning existed %s/.." % dirname)
+        shutil.rmtree(dst)
+
     print("Copying %s/.." % dirname)
-    shutil.copytree(
-        os.path.join(root, dirname),
-        os.path.join(build_dir, dirname)
-    )
+    shutil.copytree(src, dst)
 
 version = None
 
