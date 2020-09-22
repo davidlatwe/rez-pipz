@@ -1,5 +1,4 @@
 
-import subprocess
 early = globals()["early"]
 
 
@@ -27,7 +26,9 @@ build_command = " ".join([
 ])
 
 
+@early()
 def authors():
+    import subprocess
     name_list = subprocess.check_output(
         ["git", "shortlog", "-sn"]
     ).decode()
