@@ -60,6 +60,13 @@ _shim = os.path.join(_rootdir, "bin", "shim.exe")
 _log = logging.getLogger("pipz")
 
 
+def package_install_dir(pkg, is_release):
+    if is_release:
+        return pkg.config.release_packages_path or config.release_packages_path
+    else:
+        return pkg.config.local_packages_path or config.local_packages_path
+
+
 def install(names,
             prefix=None,
             release=False,
@@ -91,14 +98,11 @@ def install(names,
         extra_args=extra_args,
     )
 
-    packagesdir = prefix or (
-        config.release_packages_path if release
-        else config.local_packages_path
-    )
-
     new, existing = list(), list()
     for dist in distributions:
         package = convert(dist, variants=variants)
+
+        packagesdir = prefix or package_install_dir(package, release)
 
         if exists(package, packagesdir):
             existing.append(package)

@@ -112,13 +112,8 @@ def _install(opts, extra_args, tempdir):
                      "https://github.com/mottosso/rez-pipz/issues")
                 exit(1)
 
-            release_packages_path = (package.config.release_packages_path
-                                     or config.release_packages_path)
-            local_packages_path = (package.config.local_packages_path
-                                   or config.local_packages_path)
-            packagesdir = opts.prefix or (
-                release_packages_path if opts.release else local_packages_path
-            )
+            packagesdir = (opts.prefix
+                           or pip.package_install_dir(package, opts.release))
 
             if pip.exists(package, packagesdir):
                 exists.append(package)
