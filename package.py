@@ -1,6 +1,16 @@
+
+import subprocess
+early = globals()["early"]
+
+
 name = "pipz"
-version = "1.2.2"
-requires = ["bleeding_rez-2.29+", "python>=2,<4"]
+
+version = "1.2.2.dev.1"
+
+requires = [
+    "python-2.7+,<4",
+    "rez-2.29+",
+]
 
 tools = [
     "install",
@@ -17,8 +27,18 @@ build_command = " ".join([
 ])
 
 
+def authors():
+    name_list = subprocess.check_output(
+        ["git", "shortlog", "-sn"]
+    ).decode()
+    return [
+        n.strip().split("\t", 1)[-1]
+        for n in name_list.strip().split("\n")
+    ]
+
+
 def commands():
-    global env
+    env = globals()["env"]
 
     env.PATH.prepend("{root}/bin")
     env.PYTHONPATH.prepend("{root}/python")
