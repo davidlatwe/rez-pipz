@@ -9,7 +9,6 @@ import contextlib
 
 from . import pip
 from .version import version
-from rez.config import config
 
 log = logging.getLogger("pipz")
 log.setLevel(logging.INFO)
