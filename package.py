@@ -4,7 +4,7 @@ early = globals()["early"]
 
 name = "pipz"
 
-version = "1.2.2.dev.1"
+version = "1.3.0.dev.0"
 
 requires = [
     "python-2.7+,<4",
